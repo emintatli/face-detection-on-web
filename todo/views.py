@@ -11,9 +11,12 @@ def index(request):
 
 def index(request):  
     if request.method == 'POST':  
-        student = StudentForm(request.POST, request.FILES)  
-        if student.is_valid():  
-            return handle_uploaded_file(request.FILES['file'])  
+        if request.FILES['file'].name.endswith('.jpg') or request.FILES['file'].name.endswith('.png'):
+         student = StudentForm(request.POST, request.FILES)  
+         if student.is_valid():  
+             return handle_uploaded_file(request.FILES['file'])
+        else:
+         return HttpResponse("<center>Sadece resim dosyaları kabul edilir(jpg,png)</center>")  
              
     else:  
         student = StudentForm()  
